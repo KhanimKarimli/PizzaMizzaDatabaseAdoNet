@@ -50,27 +50,80 @@ SELECT * FROM Ingredients;
 
 CREATE TABLE Pizzas(
 Id INT PRIMARY KEY IDENTITY,
-Name VARCHAR(30) NOT NULL,
-Size NVARCHAR(15) NOT NULL,
-Price DECIMAL
+Name VARCHAR(30) NOT NULL
 )
+
+
+
 
 CREATE TABLE Sizes(
 Id INT PRIMARY KEY IDENTITY,
 Name VARCHAR(30) NOT NULL
 )
 
+INSERT INTO Sizes VALUES
+('kicik-25 sm'),
+('orta-30 sm'),
+('boyuk-35 sm')
+
+SELECT p.Id, p.Name, s.Name, pr.Price FROM Pizzas p inner join Prices pr on p.Id=pr.PizzaId  inner join Sizes s on s.Id=pr.SizeId 
+DROP TABLE Prices
 CREATE TABLE Prices(
 Id INT PRIMARY KEY IDENTITY,
 PizzaId INT FOREIGN KEY REFERENCES Pizzas(Id),
-SizeId INT FOREIGN KEY REFERENCES Sizes(Id)
+SizeId INT FOREIGN KEY REFERENCES Sizes(Id),
+Price DECIMAL
 )
+
+INSERT INTO Prices VALUES
+(1,1,8.90),
+(1,2,12.90),
+(1,3,16.90),
+(2,1,8.90),
+(2,2,12.90),
+(2,3,16.90),
+(3,1,10.90),
+(3,2,15.90),
+(3,3,20.90),
+(4,1,10.90),
+(4,2,15.90),
+(4,3,20.90),
+(5,1,10.90),
+(5,2,15.90),
+(5,3,20.90),
+(6,1,10.90),
+(6,2,15.90),
+(6,3,20.90),
+(7,1,11.90),
+(7,2,16.90),
+(7,3,22.90),
+(8,1,11.90),
+(8,2,16.90),
+(8,3,22.90),
+(9,1,11.90),
+(9,2,16.90),
+(9,3,22.90),
+(10,1,11.90),
+(10,2,16.90),
+(10,3,22.90)
+
+INSERT INTO Pizzas VALUES
+('Marqarita'),
+('Vegeterian'),
+('Fungi Kon Pollo'),
+('Havay'),
+('Texas'),
+('Klassiko'),
+('Salyami'),
+('Mista'),
+('Chiken Strips'),
+('Meksikana')
 
 
 INSERT INTO Pizzas VALUES
 ('Marqarita','kicik-25 sm',8.90),
-('Marqarita','orta-30 sm',12.90),
-('Marqarita','boyuk-35 sm',16.90),
+('Marqarita',,12.90),
+('Marqarita',,16.90),
 ('Vegeterian','kicik-25 sm',8.90),
 ('Vegeterian','orta-30 sm',12.90),
 ('Vegeterian','boyuk-35 sm',16.90),
@@ -83,7 +136,7 @@ INSERT INTO Pizzas VALUES
 ('Texas','kicik-25 sm',10.90),
 ('Texas','orta-30 sm',15.90),
 ('Texas','boyuk-35 sm',20.90),
-('Klassiko','kicik-25 sm',10.90),
+('Klassiko',,10.90),
 ('Klassiko','orta-30 sm',15.90),
 ('Klassiko','boyuk-35 sm',20.90),
 ('Salyami','kicik-25 sm',11.90),
@@ -131,8 +184,8 @@ SELECT * FROM Pizzas;
 
 CREATE TABLE PizzaIngredients(
 Id INT PRIMARY KEY IDENTITY,
-PizzaId INT FOREIGN KEY REFERENCES Pizzalar(Id),
-IngredientId INT FOREIGN KEY REFERENCES Ýnqridentler(Id)
+PizzaId INT FOREIGN KEY REFERENCES Pizzas(Id),
+IngredientId INT FOREIGN KEY REFERENCES Ingredients(Id)
 )
 
 INSERT INTO PizzaIngredients VALUES
@@ -142,60 +195,21 @@ INSERT INTO PizzaIngredients VALUES
 (1,3),
 (2,1),
 (2,13),
-(2,30),
+(2,12),
+(2,11),
+(2,9),
 (2,3),
+(2,14),
 (3,1),
 (3,13),
-(3,30),
-(3,3),
+(3,14),
+(3,10),
 (4,1),
 (4,13),
-(4,12),
-(4,11),
-(4,9),
 (4,3),
-(4,14),
-(5,1),
-(5,13),
-(5,12),
-(5,11),
-(5,9),
-(5,3),
-(5,14),
-(6,1),
-(6,13),
-(6,12),
-(6,11),
-(6,9),
-(6,3),
-(6,14),
-(7,1),
-(7,13),
-(7,14),
-(7,10),
-(8,1),
-(8,13),
-(8,14),
-(8,10),
-(9,1),
-(9,13),
-(9,14),
-(9,10),
-(10,1),
-(10,13),
-(10,3),
-(10,24),
-(10,35),
-(11,1),
-(11,13),
-(11,3),
-(11,24),
-(11,35),
-(12,1),
-(12,13),
-(12,3),
-(12,24),
-(12,35)
+(4,24),
+(4,35)
+
 
 
 SELECT * FROM PizzaIngredients
@@ -204,8 +218,7 @@ SELECT I.Name FROM Pizzas P
 JOIN PizzaIngredients PI
 ON P.Id=PI.PizzaId
 JOIN Ingredients I
-ON I.Id=PI.IngredientId
-WHERE P.Name='Marqarita' AND Size='kicik-25 sm'
+ON I.Id=PI.IngredientId where P.Id=ID
 
 
 
